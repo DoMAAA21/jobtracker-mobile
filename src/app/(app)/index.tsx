@@ -1,15 +1,15 @@
-import * as Device from 'expo-device';
 import { useQueryClient } from '@tanstack/react-query';
+import * as Device from 'expo-device';
 import { useRouter } from 'expo-router';
 import { Platform, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AnimatedIcon } from '@/app/(app)/+components/animated-icon';
-import { HintRow } from '@/app/(app)/+components/hint-row';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { AnimatedIcon } from '@/features/app/animated-icon';
+import { HintRow } from '@/features/app/hint-row';
 import { authQueryKeys, useAuth } from '@/hooks/auth';
 import { logout } from '@/lib/auth';
 
