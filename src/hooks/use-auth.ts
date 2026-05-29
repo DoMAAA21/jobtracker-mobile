@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-import { authQueryKeys } from '@/hooks/auth/query-keys';
-import { getMe } from '@/lib/auth';
+import { getMe } from '@/api/auth';
 import { hasAccessToken } from '@/lib/auth-token';
+
+export const authQueryKeys = {
+  me: ['auth', 'me'] as const,
+};
 
 export function useAuth() {
   const [tokenReady, setTokenReady] = useState(false);

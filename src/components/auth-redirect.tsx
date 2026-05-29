@@ -1,7 +1,7 @@
 import { useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
 
-import { useAuth } from '@/hooks/auth';
+import { useAuth } from '@/hooks/use-auth';
 
 export function AuthRedirect() {
   const { isAuthenticated, isLoading } = useAuth();

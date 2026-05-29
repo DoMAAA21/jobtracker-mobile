@@ -10,8 +10,8 @@ import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { AnimatedIcon } from '@/features/app/animated-icon';
 import { HintRow } from '@/features/app/hint-row';
-import { authQueryKeys, useAuth } from '@/hooks/auth';
-import { logout } from '@/lib/auth';
+import { authQueryKeys, useAuth } from '@/hooks/use-auth';
+import { logout } from '@/api/auth';
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {

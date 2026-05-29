@@ -1,24 +1,29 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  StyleSheet,
-  TextInput,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
 
+import { Button, buttonFullWidth } from '@/components/ui/button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
-import { useLogin } from '@/hooks/auth/use-login';
+import { authQueryKeys } from '@/hooks/use-auth';
 import { useTheme } from '@/hooks/use-theme';
 import { getErrorMessage } from '@/lib/api-error';
+import { login } from '@/api/auth';
 
 export function LoginForm() {
   const theme = useTheme();
-  const loginMutation = useLogin();
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const loginMutation = useMutation({
+    mutationFn: login,
+    onSuccess: (user) => {
+      queryClient.setQueryData(authQueryKeys.me, user);
+      router.replace('/(app)');
+    },
+  });
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +36,7 @@ export function LoginForm() {
   };
 
   const errorMessage = loginMutation.error ? getErrorMessage(loginMutation.error) : null;
-  const canSubmit = email.trim().length > 0 && password.length >= 8 && !loginMutation.isPending;
+  const canSubmit = email.trim().length > 0 && password.length >= 8;
 
   return (
     <KeyboardAvoidingView
@@ -80,21 +85,13 @@ export function LoginForm() {
           </ThemedView>
         ) : null}
 
-        <Pressable
+        <Button
           onPress={handleSubmit}
           disabled={!canSubmit}
-          style={({ pressed }) => [
-            styles.button,
-            { backgroundColor: theme.text, opacity: !canSubmit ? 0.5 : pressed ? 0.85 : 1 },
-          ]}>
-          {loginMutation.isPending ? (
-            <ActivityIndicator color={theme.background} />
-          ) : (
-            <ThemedText type="smallBold" style={[styles.buttonText, { color: theme.background }]}>
-              Sign in
-            </ThemedText>
-          )}
-        </Pressable>
+          loading={loginMutation.isPending}
+          style={[buttonFullWidth, styles.submit]}>
+          Sign in
+        </Button>
       </View>
     </KeyboardAvoidingView>
   );
@@ -134,13 +131,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#e5484d',
   },
-  button: {
+  submit: {
     marginTop: Spacing.three,
-    borderRadius: Spacing.two,
-    paddingVertical: Spacing.three,
-    alignItems: 'center',
-  },
-  buttonText: {
-    textAlign: 'center',
   },
 });

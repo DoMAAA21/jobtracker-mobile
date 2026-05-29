@@ -62,8 +62,8 @@ export default function TabTwoScreen() {
           <Collapsible title="File-based routing">
             <ThemedText type="small">
               Shared code in <ThemedText type="code">src/components</ThemedText>, domain UI in{' '}
-              <ThemedText type="code">src/app/(auth)/+components</ThemedText> and{' '}
-              <ThemedText type="code">src/app/(app)/+components</ThemedText>
+              <ThemedText type="code">src/features/auth</ThemedText> and{' '}
+              <ThemedText type="code">src/features/app</ThemedText>
             </ThemedText>
             <ExternalLink href="https://docs.expo.dev/router/introduction">
               <ThemedText type="linkPrimary">Learn more</ThemedText>

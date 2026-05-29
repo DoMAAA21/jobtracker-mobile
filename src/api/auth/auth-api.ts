@@ -1,11 +1,11 @@
+import type { AuthResponse, LoginDto, User } from '@/api/auth/auth-dto';
 import { clearAccessToken, setAccessToken } from '@/lib/auth-token';
 import { http } from '@/lib/http';
 
-import type { AuthResponse, LoginDto, User } from './auth.types';
-
 export async function login(dto: LoginDto): Promise<User> {
+  console.log('login', dto);
   const { data } = await http.post<AuthResponse>('/auth/login', dto);
-
+  console.log('data', data);
   if (!data.accessToken) {
     throw new Error(
       'API did not return accessToken. Update the Nest auth controller to include it in the login response (see Plan.md).',

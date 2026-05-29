@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { AuthRedirect } from '@/components/auth-redirect';
-import { useAuth } from '@/hooks/auth';
+import { useAuth } from '@/hooks/use-auth';
 import { useTheme } from '@/hooks/use-theme';
 import { QueryProvider } from '@/providers/query-provider';
 
